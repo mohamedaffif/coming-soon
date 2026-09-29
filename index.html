@@ -271,50 +271,40 @@
       letter-spacing: 0.03em;
     }
 
-    .countdown {
-      display: grid;
-      max-width: 650px;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+    .launch-notice {
+      max-width: 420px;
       margin: 45px auto 0;
-    }
-
-    .countdown-item {
-      position: relative;
-      padding: 24px 12px 20px;
+      padding: 22px 20px;
       border: 1px solid var(--border);
       border-radius: 4px;
       background: rgba(255, 255, 255, 0.02);
     }
 
-    .countdown-item:not(:last-child)::after {
-      position: absolute;
-      top: 27px;
-      right: -9px;
-      z-index: 2;
-      content: ":";
-      color: rgba(198, 161, 91, 0.7);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 24px;
-    }
-
-    .countdown-number {
+    .launch-notice-title {
       display: block;
-      color: var(--primary-text);
+      color: var(--gold);
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(29px, 5vw, 46px);
+      font-size: 26px;
       font-weight: 400;
-      line-height: 1;
+      line-height: 1.2;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
     }
 
-    .countdown-label {
-      display: block;
+    .launch-notice-text {
+      display: inline-block;
       margin-top: 10px;
       color: var(--muted-text);
-      font-size: 9px;
+      font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.2em;
+      line-height: 1.6;
       text-transform: uppercase;
+      transition: color 180ms ease;
+    }
+
+    .launch-notice-text:hover {
+      color: var(--gold);
     }
 
     .store-details {
@@ -378,28 +368,19 @@
         font-size: 14px;
       }
 
-      .countdown {
-        gap: 7px;
+      .launch-notice {
         margin-top: 35px;
+        padding: 18px 14px;
       }
 
-      .countdown-item {
-        padding: 18px 5px 15px;
-      }
-
-      .countdown-item:not(:last-child)::after {
-        top: 20px;
-        right: -6px;
-        font-size: 18px;
-      }
-
-      .countdown-number {
-        font-size: 29px;
-      }
-
-      .countdown-label {
-        font-size: 7px;
+      .launch-notice-title {
+        font-size: 22px;
         letter-spacing: 0.12em;
+      }
+
+      .launch-notice-text {
+        font-size: 10px;
+        letter-spacing: 0.14em;
       }
 
       .store-details {
@@ -422,14 +403,6 @@
     @media (max-width: 390px) {
       .coming-soon-card {
         padding-inline: 14px;
-      }
-
-      .countdown {
-        gap: 5px;
-      }
-
-      .countdown-number {
-        font-size: 25px;
       }
     }
   </style>
@@ -466,26 +439,17 @@
 
         <p class="tagline">Luxury scents, timeless memory.</p>
 
-        <div class="countdown" aria-label="Countdown to launch">
-          <div class="countdown-item">
-            <span class="countdown-number" id="days">00</span>
-            <span class="countdown-label">Days</span>
-          </div>
+        <div class="launch-notice">
+          <span class="launch-notice-title">Launching Shortly</span>
 
-          <div class="countdown-item">
-            <span class="countdown-number" id="hours">00</span>
-            <span class="countdown-label">Hours</span>
-          </div>
-
-          <div class="countdown-item">
-            <span class="countdown-number" id="minutes">00</span>
-            <span class="countdown-label">Minutes</span>
-          </div>
-
-          <div class="countdown-item">
-            <span class="countdown-number" id="seconds">00</span>
-            <span class="countdown-label">Seconds</span>
-          </div>
+          <a
+            class="launch-notice-text"
+            href="https://www.instagram.com/de_perfumeshop"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Be the first to know &mdash; follow us on Instagram
+          </a>
         </div>
 
         <div class="store-details">
@@ -517,58 +481,8 @@
   </main>
 
   <script>
-    /*
-      Change this to your real launch date.
-
-      Format:
-      YYYY-MM-DDTHH:MM:SS+03:00
-
-      +03:00 represents Nairobi / East Africa Time.
-    */
-    const launchDate = new Date("2026-09-30T10:00:00+03:00");
-
-    const countdownElements = {
-      days: document.getElementById("days"),
-      hours: document.getElementById("hours"),
-      minutes: document.getElementById("minutes"),
-      seconds: document.getElementById("seconds"),
-    };
-
-    function formatNumber(value) {
-      return String(value).padStart(2, "0");
-    }
-
-    function updateCountdown() {
-      const difference = launchDate.getTime() - Date.now();
-
-      if (difference <= 0) {
-        countdownElements.days.textContent = "00";
-        countdownElements.hours.textContent = "00";
-        countdownElements.minutes.textContent = "00";
-        countdownElements.seconds.textContent = "00";
-        return;
-      }
-
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (difference / (1000 * 60 * 60)) % 24
-      );
-      const minutes = Math.floor(
-        (difference / (1000 * 60)) % 60
-      );
-      const seconds = Math.floor((difference / 1000) % 60);
-
-      countdownElements.days.textContent = formatNumber(days);
-      countdownElements.hours.textContent = formatNumber(hours);
-      countdownElements.minutes.textContent = formatNumber(minutes);
-      countdownElements.seconds.textContent = formatNumber(seconds);
-    }
-
     document.getElementById("current-year").textContent =
       new Date().getFullYear();
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
